@@ -33,7 +33,7 @@ export default function CookieConsent() {
         </span>
         <div className="flex-1 text-sm text-slate-600">
           Nous utilisons des cookies pour améliorer votre expérience.{" "}
-          <a href="/gestion-cookies" className="font-semibold text-nova-700 underline underline-offset-2 hover:text-nova-900">
+          <a href="gestion-cookies.html" className="font-semibold text-nova-700 underline underline-offset-2 hover:text-nova-900">
             En savoir plus
           </a>
         </div>

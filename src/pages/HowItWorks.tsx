@@ -55,7 +55,7 @@ export default function HowItWorks() {
               Complétez votre demande en 4 minutes et recevez une réponse sous 30 minutes.
             </p>
             <a
-              href="/demande"
+              href="demande.html"
               className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-mint-500 px-7 py-4 text-base font-extrabold text-nova-950 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:bg-mint-400"
             >
               Demander mon prêt <ArrowRight className="h-5 w-5" />

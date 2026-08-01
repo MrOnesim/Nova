@@ -305,7 +305,7 @@ export default function Apply() {
               </p>
             </div>
             <a
-              href="/"
+              href="index.html"
               className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-7 py-3.5 font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
               Retour à l'accueil
@@ -360,7 +360,7 @@ export default function Apply() {
         </Helmet>
       <div className="mx-auto w-full max-w-5xl">
         <a
-          href="/"
+          href="index.html"
           className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-nova-700"
         >
           <ArrowLeft className="h-4 w-4" /> Retour à l'accueil

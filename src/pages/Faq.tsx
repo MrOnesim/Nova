@@ -108,7 +108,7 @@ export default function Faq() {
                   <p><span className="font-semibold text-nova-800">Email :</span> bonjour@pretnova.example</p>
                 </div>
                 <a
-                  href="/demande"
+                  href="demande.html"
                   className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
                 >
                   Demander mon prêt <ArrowRight className="h-4 w-4" />

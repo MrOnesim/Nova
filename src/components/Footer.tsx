@@ -50,11 +50,11 @@ export default function Footer() {
           <h4 className="text-sm font-bold tracking-wide text-white uppercase">Produits</h4>
           <ul className="mt-4 space-y-3 text-sm">
             {[
-              ["/#simulateur", "Simulateur de prêt"],
-              ["/#simulateur", "Prêt personnel"],
-              ["/#simulateur", "Prêt professionnel"],
-              ["/comment-ca-marche", "Comment ça marche"],
-              ["/faq", "Questions fréquentes"],
+              ["index.html#simulateur", "Simulateur de prêt"],
+              ["index.html#simulateur", "Prêt personnel"],
+              ["index.html#simulateur", "Prêt professionnel"],
+              ["comment-ca-marche.html", "Comment ça marche"],
+              ["faq.html", "Questions fréquentes"],
             ].map(([href, label], i) => (
               <li key={`${label}-${i}`}>
                 <a href={href as string} className="transition hover:text-mint-400">
@@ -69,11 +69,11 @@ export default function Footer() {
           <h4 className="text-sm font-bold tracking-wide text-white uppercase">Informations légales</h4>
           <ul className="mt-4 space-y-3 text-sm">
             {[
-              ["/mentions-legales", "Mentions légales"],
-              ["/politique-confidentialite", "Politique de confidentialité"],
-              ["/gestion-cookies", "Gestion des cookies"],
-              ["/information-precontractuelle", "Information précontractuelle"],
-              ["/reclamations", "Réclamations & médiation"],
+              ["mentions-legales.html", "Mentions légales"],
+              ["politique-confidentialite.html", "Politique de confidentialité"],
+              ["gestion-cookies.html", "Gestion des cookies"],
+              ["information-precontractuelle.html", "Information précontractuelle"],
+              ["reclamations.html", "Réclamations & médiation"],
             ].map(([path, label]) => (
               <li key={label as string}>
                 <a href={path as string} className="transition hover:text-mint-400">

@@ -40,7 +40,7 @@ export default function Home() {
     if (r) {
       sessionStorage.setItem("pretnova-prefill", JSON.stringify(r));
     }
-    window.location.href = "/demande";
+    window.location.href = "demande.html";
   };
 
   return (
@@ -324,7 +324,7 @@ export default function Home() {
               className="reveal mt-8 h-60 w-full rounded-3xl object-cover"
             />
             <a
-              href="/comment-ca-marche"
+              href="comment-ca-marche.html"
               className="reveal mt-7 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
               Voir toutes les étapes <ArrowRight className="h-5 w-5" />
@@ -342,7 +342,7 @@ export default function Home() {
               </div>
             ))}
             <a
-              href="/comment-ca-marche"
+              href="comment-ca-marche.html"
               className="reveal mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-nova-700 hover:text-nova-900"
             >
               Voir les 4 étapes détaillées →
@@ -435,7 +435,7 @@ export default function Home() {
             </figure>
           ))}
           <a
-            href="/avis"
+            href="avis.html"
             className="reveal flex h-full min-h-[260px] flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 bg-white/60 p-7 text-center transition hover:border-nova-300 hover:bg-white"
             style={{ animationDelay: `${1 * 90}ms` }}
           >
@@ -455,12 +455,12 @@ export default function Home() {
             </h2>
             <p className="reveal mt-4 text-slate-600">
               Les 6 questions les plus posées.{" "}
-              <a href="/faq" className="font-semibold text-nova-700 underline underline-offset-2 hover:text-nova-900">
+              <a href="faq.html" className="font-semibold text-nova-700 underline underline-offset-2 hover:text-nova-900">
                 Voir la FAQ complète
               </a>
             </p>
             <a
-              href="/faq"
+              href="faq.html"
               className="reveal mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
               Tout savoir <ArrowRight className="h-4 w-4" />
@@ -484,7 +484,7 @@ export default function Home() {
               </div>
             ))}
             <a
-              href="/faq"
+              href="faq.html"
               className="reveal mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-nova-700 hover:text-nova-900"
             >
               Voir les 6 questions →

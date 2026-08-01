@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Menu, Phone, Sparkles, X } from "lucide-react";
 
 const links = [
-  { href: "/#simulateur", label: "Simulateur" },
-  { href: "/#ventajas", label: "Avantages" },
-  { href: "/comment-ca-marche", label: "Comment ça marche" },
-  { href: "/avis", label: "Avis" },
-  { href: "/faq", label: "FAQ" },
+  { href: "index.html#simulateur", label: "Simulateur" },
+  { href: "index.html#ventajas", label: "Avantages" },
+  { href: "comment-ca-marche.html", label: "Comment ça marche" },
+  { href: "avis.html", label: "Avis" },
+  { href: "faq.html", label: "FAQ" },
 ];
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <a href="/" className="flex items-center gap-2.5">
+    <a href="index.html" className="flex items-center gap-2.5">
       <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-nova-500 to-nova-700 shadow-lg shadow-nova-600/30">
         <Sparkles className="h-5 w-5 text-white" strokeWidth={2.4} />
       </span>
@@ -62,7 +62,7 @@ export default function Header() {
             <Phone className="h-4 w-4" /> 01 80 00 00 00
           </a>
           <a
-            href="/demande"
+            href="demande.html"
             className="rounded-xl bg-nova-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
           >
             Demander un prêt
@@ -93,7 +93,7 @@ export default function Header() {
             ))}
           </nav>
           <a
-            href="/demande"
+            href="demande.html"
             onClick={() => setOpen(false)}
             className="flex w-full items-center justify-center rounded-xl bg-nova-600 px-5 py-3 text-sm font-bold text-white"
           >

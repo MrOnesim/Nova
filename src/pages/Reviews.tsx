@@ -94,7 +94,7 @@ export default function Reviews() {
             Simulation gratuite, réponse en 30 minutes, déblocage sous 24 h.
           </p>
           <a
-            href="/demande"
+            href="demande.html"
             className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-7 py-4 text-base font-bold text-white shadow-xl shadow-nova-600/30 transition hover:-translate-y-0.5 hover:bg-nova-700"
           >
             Faire ma demande

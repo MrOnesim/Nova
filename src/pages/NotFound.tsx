@@ -23,7 +23,7 @@ export default function NotFound() {
           La page que vous cherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou retournez à l'accueil.
         </p>
         <a
-          href="/"
+          href="index.html"
           className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
         >
           <ArrowLeft className="h-4 w-4" /> Retour à l'accueil
