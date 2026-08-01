@@ -49,11 +49,27 @@ export function getCountryByName(name: string): CountryInfo {
 
 export const countryNames = countries.map((c) => c.name);
 
+export const langNames: Record<Lang, string> = {
+  fr: "Français",
+  es: "Español",
+  de: "Deutsch",
+  it: "Italiano",
+  pt: "Português",
+  nl: "Nederlands",
+  sk: "Slovenčina",
+};
+
 export type Lang = CountryInfo["lang"];
 
 /** Simple label map per language */
 const labels: Record<Lang, Record<string, string>> = {
   fr: {
+    navSimulator: "Simulateur",
+    navAdvantages: "Avantages",
+    navHowItWorks: "Comment ça marche",
+    navReviews: "Avis",
+    navFaq: "FAQ",
+    navApply: "Demander un prêt",
     step1Title: "Votre prêt",
     step2Title: "Votre identité",
     step3Title: "Votre situation",
@@ -96,6 +112,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Formats acceptés : JPG, PNG, PDF. Vous pouvez prendre les photos directement depuis votre téléphone.",
   },
   es: {
+    navSimulator: "Simulador",
+    navAdvantages: "Ventajas",
+    navHowItWorks: "Cómo funciona",
+    navReviews: "Opiniones",
+    navFaq: "Preguntas frecuentes",
+    navApply: "Solicitar préstamo",
     step1Title: "Su préstamo",
     step2Title: "Su identidad",
     step3Title: "Su situación",
@@ -138,6 +160,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Formatos aceptados: JPG, PNG, PDF. Puede tomar las fotos directamente desde su teléfono.",
   },
   sk: {
+    navSimulator: "Simulátor",
+    navAdvantages: "Výhody",
+    navHowItWorks: "Ako to funguje",
+    navReviews: "Recenzie",
+    navFaq: "Časté otázky",
+    navApply: "Požiadať o pôžičku",
     step1Title: "Vaša pôžička",
     step2Title: "Vaša identita",
     step3Title: "Vaša situácia",
@@ -180,6 +208,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Podporované formáty: JPG, PNG, PDF. Fotografie môžete odfotiť priamo telefónom.",
   },
   de: {
+    navSimulator: "Rechner",
+    navAdvantages: "Vorteile",
+    navHowItWorks: "So funktioniert's",
+    navReviews: "Bewertungen",
+    navFaq: "Häufige Fragen",
+    navApply: "Kredit beantragen",
     step1Title: "Ihr Darlehen",
     step2Title: "Ihre Identität",
     step3Title: "Ihre Situation",
@@ -222,6 +256,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Akzeptierte Formate: JPG, PNG, PDF. Sie können Fotos direkt mit Ihrem Telefon aufnehmen.",
   },
   nl: {
+    navSimulator: "Simulator",
+    navAdvantages: "Voordelen",
+    navHowItWorks: "Hoe werkt het",
+    navReviews: "Beoordelingen",
+    navFaq: "Veelgestelde vragen",
+    navApply: "Lening aanvragen",
     step1Title: "Uw lening",
     step2Title: "Uw identiteit",
     step3Title: "Uw situatie",
@@ -264,6 +304,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Accepteerde formaten: JPG, PNG, PDF. U kunt de foto's direct met uw telefoon nemen.",
   },
   pt: {
+    navSimulator: "Simulador",
+    navAdvantages: "Vantagens",
+    navHowItWorks: "Como funciona",
+    navReviews: "Opiniões",
+    navFaq: "Perguntas frequentes",
+    navApply: "Pedir empréstimo",
     step1Title: "O seu empréstimo",
     step2Title: "A sua identidade",
     step3Title: "A sua situação",
@@ -306,6 +352,12 @@ const labels: Record<Lang, Record<string, string>> = {
     formats: "Formatos aceites: JPG, PNG, PDF. Pode tirar as fotos diretamente do seu telemóvel.",
   },
   it: {
+    navSimulator: "Simulatore",
+    navAdvantages: "Vantaggi",
+    navHowItWorks: "Come funziona",
+    navReviews: "Recensioni",
+    navFaq: "Domande frequenti",
+    navApply: "Richiedi un prestito",
     step1Title: "Il tuo prestito",
     step2Title: "La tua identità",
     step3Title: "La tua situazione",

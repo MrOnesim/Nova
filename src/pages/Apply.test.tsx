@@ -3,12 +3,15 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { HelmetProvider } from "react-helmet-async";
 import Apply from "./Apply";
+import { LanguageProvider } from "../lib/LanguageContext";
 
 function renderApply() {
   return render(
-    <HelmetProvider>
-      <Apply />
-    </HelmetProvider>,
+    <LanguageProvider>
+      <HelmetProvider>
+        <Apply />
+      </HelmetProvider>
+    </LanguageProvider>,
   );
 }
 

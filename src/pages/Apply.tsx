@@ -25,7 +25,8 @@ import {
 import { computeSimulation, type SimulationResult } from "../components/Simulator";
 import { personalPurposes, photos, proPurposes } from "../data";
 import { validateEmail, validateIBAN, validatePhone } from "../lib/validate";
-import { detectCountry, getCountryByName, countryNames, t, type Lang } from "../lib/locale";
+import { detectCountry, getCountryByName, countryNames, t } from "../lib/locale";
+import { useLanguage } from "../lib/LanguageContext";
 
 const nf = (n: number, d = 2) =>
   n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -74,7 +75,7 @@ type Form = {
 
 export default function Apply() {
   const detected = useMemo(() => detectCountry(), []);
-  const [lang] = useState<Lang>(detected.lang);
+  const { lang } = useLanguage();
 
   const prefill: SimulationResult | undefined = (() => {
     const raw = sessionStorage.getItem("pretnova-prefill");

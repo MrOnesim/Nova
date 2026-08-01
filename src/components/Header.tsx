@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Menu, Phone, Sparkles, X } from "lucide-react";
+import { langNames, t, type Lang } from "../lib/locale";
+import { useLanguage } from "../lib/LanguageContext";
 
-const links = [
-  { href: "index.html#simulateur", label: "Simulateur" },
-  { href: "index.html#ventajas", label: "Avantages" },
-  { href: "comment-ca-marche.html", label: "Comment ça marche" },
-  { href: "avis.html", label: "Avis" },
-  { href: "faq.html", label: "FAQ" },
+const linkHrefs = [
+  "index.html#simulateur",
+  "index.html#ventajas",
+  "comment-ca-marche.html",
+  "avis.html",
+  "faq.html",
 ];
 
 export function Logo({ light = false }: { light?: boolean }) {
@@ -25,6 +27,16 @@ export function Logo({ light = false }: { light?: boolean }) {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { lang, setLang } = useLanguage();
+
+  const navLabels = [
+    t(lang, "navSimulator"),
+    t(lang, "navAdvantages"),
+    t(lang, "navHowItWorks"),
+    t(lang, "navReviews"),
+    t(lang, "navFaq"),
+  ];
+  const links = linkHrefs.map((href, i) => ({ href, label: navLabels[i] }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -54,28 +66,43 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="tel:+33180000000"
-            className="flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-nova-700"
+        <div className="flex items-center gap-3">
+          <select
+            value={lang}
+            onChange={(e) => setLang(e.target.value as Lang)}
+            aria-label="Langue / Language"
+            className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-sm font-semibold text-slate-700 transition hover:border-nova-300 focus:outline-none focus:ring-2 focus:ring-nova-500/40"
           >
-            <Phone className="h-4 w-4" /> 01 80 00 00 00
-          </a>
-          <a
-            href="demande.html"
-            className="rounded-xl bg-nova-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
-          >
-            Demander un prêt
-          </a>
-        </div>
+            {(Object.keys(langNames) as Lang[]).map((l) => (
+              <option key={l} value={l}>
+                {langNames[l]}
+              </option>
+            ))}
+          </select>
 
-        <button
-          className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 lg:hidden"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <div className="hidden items-center gap-3 lg:flex">
+            <a
+              href="tel:+33180000000"
+              className="flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-nova-700"
+            >
+              <Phone className="h-4 w-4" /> 01 80 00 00 00
+            </a>
+            <a
+              href="demande.html"
+              className="rounded-xl bg-nova-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
+            >
+              {t(lang, "navApply")}
+            </a>
+          </div>
+
+          <button
+            className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 lg:hidden"
+            onClick={() => setOpen((o) => !o)}
+            aria-label="Menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -97,7 +124,7 @@ export default function Header() {
             onClick={() => setOpen(false)}
             className="flex w-full items-center justify-center rounded-xl bg-nova-600 px-5 py-3 text-sm font-bold text-white"
           >
-            Demander un prêt
+            {t(lang, "navApply")}
           </a>
         </div>
       )}
