@@ -17,6 +17,8 @@ import {
 import Simulator, { type SimulationResult } from "../components/Simulator";
 import { Counter, Eyebrow, Section } from "../components/ui";
 import { faqs, features, photos, projects, stats, steps, testimonials } from "../data";
+import { pt } from "../lib/content";
+import { useLanguage } from "../lib/LanguageContext";
 
 const icons: Record<string, typeof Zap> = {
   Zap,
@@ -28,6 +30,7 @@ const icons: Record<string, typeof Zap> = {
 };
 
 export default function Home() {
+  const { lang } = useLanguage();
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -46,10 +49,10 @@ export default function Home() {
   return (
     <main>
       <Helmet>
-        <title>Prêt Nova · Simulateur de prêt personnel en ligne</title>
-        <meta name="description" content="Simulateur de prêt personnel en ligne : de 1 000 € à 75 000 € à taux fixe. Réponse en 30 minutes, sécurisé, transparent et conçu pour la zone Euro." />
-        <meta property="og:title" content="Prêt Nova · Simulateur de prêt personnel en ligne" />
-        <meta property="og:description" content="Simulez et obtenez votre prêt personnel en ligne. De 1 000 € à 75 000 €, réponse en 30 minutes, sans engagement." />
+        <title>{pt(lang, "home.title")}</title>
+        <meta name="description" content={pt(lang, "home.metaDesc")} />
+        <meta property="og:title" content={pt(lang, "home.title")} />
+        <meta property="og:description" content={pt(lang, "home.ogDesc")} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://pretnova.example" />
         <meta property="og:locale" content="fr_FR" />
@@ -89,17 +92,16 @@ export default function Home() {
         <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <Eyebrow>
-              <span className="h-1.5 w-1.5 rounded-full bg-mint-500" /> Crédit responsable en zone Euro
+              <span className="h-1.5 w-1.5 rounded-full bg-mint-500" /> {pt(lang, "home.eyebrow")}
             </Eyebrow>
             <h1 className="mt-6 text-4xl leading-[1.05] font-extrabold tracking-tight text-nova-950 sm:text-5xl lg:text-6xl">
-              Simulateur de prêt personnel{" "}
+              {pt(lang, "home.h1a")}{" "}
               <span className="bg-gradient-to-r from-nova-600 to-mint-500 bg-clip-text text-transparent">
-                en ligne
+                {pt(lang, "home.h1b")}
               </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-              Obtenez votre prêt approuvé en seulement 30 minutes. Sécurisé, transparent et conçu pour la zone
-              Euro : de 1 000 € à 75 000 €, à taux fixe, sans caution.
+              {pt(lang, "home.heroText")}
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -107,22 +109,22 @@ export default function Home() {
                 href="#simulateur"
                 className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-nova-600 px-7 py-4 text-base font-bold text-white shadow-xl shadow-nova-600/30 transition hover:-translate-y-0.5 hover:bg-nova-700"
               >
-                Lancer la simulation
+                {pt(lang, "home.ctaSim")}
                 <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
               </a>
               <button
                 onClick={() => goApply()}
                 className="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-nova-100 bg-white px-7 py-4 text-base font-bold text-nova-800 transition hover:border-nova-300 hover:bg-nova-50"
               >
-                Faire ma demande
+                {pt(lang, "home.ctaApply")}
               </button>
             </div>
 
             <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3">
               {[
-                [ShieldCheck, "Sécurité bancaire"],
-                [Landmark, "Réglementé UE"],
-                [Clock3, "Livraison 30 min"],
+                [ShieldCheck, pt(lang, "home.badge1")],
+                [Landmark, pt(lang, "home.badge2")],
+                [Clock3, pt(lang, "home.badge3")],
               ].map(([Icon, label]) => {
                 const I = Icon as typeof Clock3;
                 return (
@@ -158,7 +160,7 @@ export default function Home() {
                   ))}
                   <span className="ml-1 text-sm font-bold text-nova-950">4,8/5</span>
                 </div>
-                <p className="text-xs text-slate-500">42 800 dossiers financés en Europe</p>
+                <p className="text-xs text-slate-500">{pt(lang, "home.socialProof")}</p>
               </div>
             </div>
           </div>
@@ -169,12 +171,12 @@ export default function Home() {
               <div className="space-y-4">
                 <img
                   src={photos.heroWoman}
-                  alt="Cliente consultant son prêt sur mobile"
+                  alt={pt(lang, "home.altHeroWoman")}
                   className="h-64 w-full rounded-3xl object-cover shadow-xl shadow-nova-900/10"
                 />
                 <img
                   src={photos.kitchen}
-                  alt="Cuisine rénovée grâce à un prêt travaux"
+                  alt={pt(lang, "home.altKitchen")}
                   loading="lazy"
                   className="h-40 w-full rounded-3xl object-cover shadow-xl shadow-nova-900/10"
                 />
@@ -182,13 +184,13 @@ export default function Home() {
               <div className="space-y-4 pt-10">
                 <img
                   src={photos.cafeOwner}
-                  alt="Commerçante financée par un prêt professionnel"
+                  alt={pt(lang, "home.altCafeOwner")}
                   loading="lazy"
                   className="h-40 w-full rounded-3xl object-cover shadow-xl shadow-nova-900/10"
                 />
                 <img
                   src={photos.familyHome}
-                  alt="Couple préparant son projet de financement"
+                  alt={pt(lang, "home.altFamilyHome")}
                   loading="lazy"
                   className="h-64 w-full rounded-3xl object-cover shadow-xl shadow-nova-900/10"
                 />
@@ -196,9 +198,9 @@ export default function Home() {
             </div>
 
             <div className="animate-floaty absolute -bottom-6 -left-4 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-2xl backdrop-blur">
-              <p className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Accord de principe</p>
+              <p className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">{pt(lang, "home.floatLabel")}</p>
               <p className="text-2xl font-extrabold text-nova-800">30 min</p>
-              <p className="text-xs text-mint-600">● Dossiers traités en direct</p>
+              <p className="text-xs text-mint-600">● {pt(lang, "home.floatNote")}</p>
             </div>
           </div>
         </div>
@@ -208,13 +210,12 @@ export default function Home() {
       <section className="px-5 py-16 sm:px-8 lg:py-20">
         <div className="mx-auto w-full max-w-6xl">
           <div className="mb-8 max-w-2xl">
-            <Eyebrow>Simulateur</Eyebrow>
+            <Eyebrow>{pt(lang, "home.simEyebrow")}</Eyebrow>
             <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-              Calculez votre mensualité au centime près
+              {pt(lang, "home.simTitle")}
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Montant, durée, profil : chaque paramètre met à jour instantanément le TANN, le TAEG et le coût
-              total imputé au consommateur.
+              {pt(lang, "home.simText")}
             </p>
           </div>
           <Simulator onApply={(r) => goApply(r)} />
@@ -225,33 +226,33 @@ export default function Home() {
       <Section className="bg-white">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
-            <Eyebrow>Vos projets</Eyebrow>
+            <Eyebrow>{pt(lang, "home.projEyebrow")}</Eyebrow>
             <h2 className="reveal mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-              Un financement pour chaque étape de votre vie
+              {pt(lang, "home.projTitle")}
             </h2>
           </div>
           <a href="#simulateur" className="reveal font-bold text-nova-700 hover:text-nova-900">
-            Simuler mon projet →
+            {pt(lang, "home.projCta")} →
           </a>
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((p, i) => (
             <article
-              key={p.title}
+              key={p.titleKey}
               className="reveal group relative overflow-hidden rounded-3xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <img
                 src={p.photo}
-                alt={p.title}
+                alt={pt(lang, p.titleKey)}
                 loading="lazy"
                 className="h-64 w-full object-cover transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-nova-950/85 via-nova-950/25 to-transparent" />
               <div className="absolute right-5 bottom-5 left-5 text-white">
-                <p className="text-lg font-extrabold">{p.title}</p>
-                <p className="text-sm text-nova-100">{p.amount}</p>
+                <p className="text-lg font-extrabold">{pt(lang, p.titleKey)}</p>
+                <p className="text-sm text-nova-100">{pt(lang, p.amountKey)}</p>
               </div>
             </article>
           ))}
@@ -261,13 +262,12 @@ export default function Home() {
       {/* FEATURES */}
       <Section id="ventajas" className="bg-slate-50">
         <div className="max-w-2xl">
-          <Eyebrow>Pourquoi Nova</Eyebrow>
+          <Eyebrow>{pt(lang, "home.featEyebrow")}</Eyebrow>
           <h2 className="reveal mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-            Tout ce qu'on attend d'un prêt, sans ce qu'on redoute
+            {pt(lang, "home.featTitle")}
           </h2>
           <p className="reveal mt-4 text-lg text-slate-600">
-            Moins de paperasse, plus de transparence, et une personne joignable au bout du fil quand il le
-            faut.
+            {pt(lang, "home.featText")}
           </p>
         </div>
 
@@ -276,15 +276,15 @@ export default function Home() {
             const Icon = icons[f.icon];
             return (
               <article
-                key={f.title}
+                key={f.titleKey}
                 className="reveal group rounded-3xl border border-slate-200/80 bg-white p-7 transition hover:-translate-y-1 hover:border-nova-200 hover:shadow-[0_28px_60px_-32px_rgba(14,42,114,0.4)]"
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <span className="inline-flex h-13 w-13 items-center justify-center rounded-2xl bg-nova-50 p-3.5 text-nova-600 transition group-hover:bg-nova-600 group-hover:text-white">
                   <Icon className="h-6 w-6" strokeWidth={2.2} />
                 </span>
-                <h3 className="mt-5 text-lg font-bold text-nova-950">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.text}</p>
+                <h3 className="mt-5 text-lg font-bold text-nova-950">{pt(lang, f.titleKey)}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{pt(lang, f.textKey)}</p>
               </article>
             );
           })}
@@ -295,11 +295,11 @@ export default function Home() {
       <Section className="bg-nova-950 text-white">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="reveal text-center">
+            <div key={s.labelKey} className="reveal text-center">
               <p className="text-4xl font-extrabold tracking-tight text-mint-400 lg:text-5xl">
                 <Counter value={s.value} suffix={s.suffix} />
               </p>
-              <p className="mt-3 text-sm font-medium text-nova-200">{s.label}</p>
+              <p className="mt-3 text-sm font-medium text-nova-200">{pt(lang, s.labelKey)}</p>
             </div>
           ))}
         </div>
@@ -309,17 +309,16 @@ export default function Home() {
       <Section id="como-funciona" className="bg-white">
         <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
-            <Eyebrow>Comment ça marche</Eyebrow>
+            <Eyebrow>{pt(lang, "home.howEyebrow")}</Eyebrow>
             <h2 className="reveal mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-              Quatre étapes, 30 minutes chrono
+              {pt(lang, "home.howTitle")}
             </h2>
             <p className="reveal mt-4 text-lg text-slate-600">
-              Aucun déplacement, aucun envoi postal. Vous commencez sur mobile et terminez par une signature
-              électronique.
+              {pt(lang, "home.howText")}
             </p>
             <img
               src={photos.advisor}
-              alt="Conseillère Nova en déplacement"
+              alt={pt(lang, "home.altAdvisor")}
               loading="lazy"
               className="reveal mt-8 h-60 w-full rounded-3xl object-cover"
             />
@@ -327,25 +326,25 @@ export default function Home() {
               href="comment-ca-marche.html"
               className="reveal mt-7 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
-              Voir toutes les étapes <ArrowRight className="h-5 w-5" />
+              {pt(lang, "home.howCta")} <ArrowRight className="h-5 w-5" />
             </a>
           </div>
 
           <div className="space-y-6">
             {steps.slice(0, 2).map((s, i) => (
-              <div key={s.title} className="reveal rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm" style={{ animationDelay: `${i * 90}ms` }}>
+              <div key={s.titleKey} className="reveal rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm" style={{ animationDelay: `${i * 90}ms` }}>
                 <h3 className="text-lg font-bold text-nova-950">
                   <span className="mr-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-nova-600 text-xs font-extrabold text-white">{i + 1}</span>
-                  {s.title}
+                  {pt(lang, s.titleKey)}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.text}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{pt(lang, s.textKey)}</p>
               </div>
             ))}
             <a
               href="comment-ca-marche.html"
               className="reveal mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-nova-700 hover:text-nova-900"
             >
-              Voir les 4 étapes détaillées →
+              {pt(lang, "home.howMore")} →
             </a>
           </div>
         </div>
@@ -357,48 +356,47 @@ export default function Home() {
           <div className="reveal grid grid-cols-3 gap-4">
             <img
               src={photos.signing}
-              alt="Signature électronique du contrat de prêt"
+              alt={pt(lang, "home.altSigning")}
               loading="lazy"
               className="col-span-3 h-56 w-full rounded-3xl object-cover"
             />
             <img
               src={photos.desk}
-              alt="Bureau de conseiller financier"
+              alt={pt(lang, "home.altDesk")}
               loading="lazy"
               className="h-44 w-full rounded-3xl object-cover"
             />
             <img
               src={photos.euroCoins}
-              alt="Pièces en euro symbolisant l'épargne"
+              alt={pt(lang, "home.altEuroCoins")}
               loading="lazy"
               className="h-44 w-full rounded-3xl object-cover"
             />
             <img
               src={photos.manPhone}
-              alt="Client suivant son dossier depuis son mobile"
+              alt={pt(lang, "home.altManPhone")}
               loading="lazy"
               className="h-44 w-full rounded-3xl object-cover"
             />
           </div>
           <div className="reveal">
-            <Eyebrow>Transparence</Eyebrow>
+            <Eyebrow>{pt(lang, "home.transpEyebrow")}</Eyebrow>
             <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-              Chaque euro est justifié, avant la signature
+              {pt(lang, "home.transpTitle")}
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Notre simulateur détaille le capital, les intérêts, les droits de timbre et les frais de
-              dossier. Vous savez exactement ce que vous remboursez.
+              {pt(lang, "home.transpText")}
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
-                "Taux fixe garanti sur toute la durée du contrat",
-                "Aucun frais de dossier caché : montant annoncé, montant facturé",
-                "Remboursement anticipé possible à tout moment",
-                "Information précontractuelle européenne normalisée fournie",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3 text-slate-700">
+                "home.transpPoint1",
+                "home.transpPoint2",
+                "home.transpPoint3",
+                "home.transpPoint4",
+              ].map((k) => (
+                <li key={k} className="flex items-start gap-3 text-slate-700">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-mint-500" />
-                  <span className="font-medium">{t}</span>
+                  <span className="font-medium">{pt(lang, k)}</span>
                 </li>
               ))}
             </ul>
@@ -409,11 +407,13 @@ export default function Home() {
       {/* TESTIMONIALS — preview */}
       <Section id="opiniones" className="bg-white">
         <div className="mx-auto max-w-2xl text-center">
-          <Eyebrow>Avis clients</Eyebrow>
+          <Eyebrow>{pt(lang, "home.revEyebrow")}</Eyebrow>
           <h2 className="reveal mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-            Des projets concrets, des décisions sereines
+            {pt(lang, "home.revTitle")}
           </h2>
-          <p className="reveal mt-4 text-slate-600">Note moyenne <strong className="text-nova-950">4,8/5</strong> sur 42 800 avis vérifiés.</p>
+          <p className="reveal mt-4 text-slate-600">
+            {pt(lang, "home.revText")} <strong className="text-nova-950">4,8/5</strong> {pt(lang, "home.revText2")}
+          </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.slice(0, 2).map((t, i) => (
@@ -423,12 +423,12 @@ export default function Home() {
               style={{ animationDelay: `${i * 90}ms` }}
             >
               <Quote className="h-8 w-8 text-nova-200" />
-              <blockquote className="mt-4 flex-1 leading-relaxed text-slate-700">« {t.quote} »</blockquote>
+              <blockquote className="mt-4 flex-1 leading-relaxed text-slate-700">« {pt(lang, t.quoteKey)} »</blockquote>
               <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">
                 <span className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold text-white ${t.color}`}>{t.initials}</span>
                 <span>
                   <span className="block font-bold text-nova-950">{t.name}</span>
-                  <span className="block text-xs text-slate-500">{t.city}</span>
+                  <span className="block text-xs text-slate-500">{pt(lang, t.cityKey)}</span>
                 </span>
                 <BadgeCheck className="ml-auto h-5 w-5 text-mint-500" />
               </figcaption>
@@ -440,7 +440,7 @@ export default function Home() {
             style={{ animationDelay: `${1 * 90}ms` }}
           >
             <span className="text-4xl font-extrabold text-nova-600">4,8/5</span>
-            <p className="mt-2 text-sm text-slate-600">Voir tous les avis →</p>
+            <p className="mt-2 text-sm text-slate-600">{pt(lang, "home.revMore")} →</p>
           </a>
         </div>
       </Section>
@@ -449,25 +449,25 @@ export default function Home() {
       <Section id="faq" className="bg-slate-50">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <Eyebrow>Questions fréquentes</Eyebrow>
+            <Eyebrow>{pt(lang, "home.faqEyebrow")}</Eyebrow>
             <h2 className="reveal mt-5 text-3xl font-extrabold tracking-tight text-nova-950 sm:text-4xl">
-              On répond à vos doutes
+              {pt(lang, "home.faqTitle")}
             </h2>
             <p className="reveal mt-4 text-slate-600">
-              Les 6 questions les plus posées.{" "}
+              {pt(lang, "home.faqText")}{" "}
               <a href="faq.html" className="font-semibold text-nova-700 underline underline-offset-2 hover:text-nova-900">
-                Voir la FAQ complète
+                {pt(lang, "home.faqLink")}
               </a>
             </p>
             <a
               href="faq.html"
               className="reveal mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
-              Tout savoir <ArrowRight className="h-4 w-4" />
+              {pt(lang, "home.faqCta")} <ArrowRight className="h-4 w-4" />
             </a>
             <img
               src={photos.entrepreneur}
-              alt="Entrepreneure accompagnée par Nova"
+              alt={pt(lang, "home.altEntrepreneur")}
               loading="lazy"
               className="reveal mt-8 hidden h-64 w-full rounded-3xl object-cover lg:block"
             />
@@ -476,18 +476,18 @@ export default function Home() {
           <div className="space-y-3">
             {faqs.slice(0, 3).map((f) => (
               <div
-                key={f.q}
+                key={f.qKey}
                 className="reveal rounded-2xl border border-slate-200 bg-white/80 px-6 py-5"
               >
-                <p className="font-bold text-nova-950">{f.q}</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.a}</p>
+                <p className="font-bold text-nova-950">{pt(lang, f.qKey)}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{pt(lang, f.aKey)}</p>
               </div>
             ))}
             <a
               href="faq.html"
               className="reveal mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-nova-700 hover:text-nova-900"
             >
-              Voir les 6 questions →
+              {pt(lang, "home.faqMore")} →
             </a>
           </div>
         </div>
@@ -498,26 +498,26 @@ export default function Home() {
         <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-[2rem]">
           <img
             src={photos.coupleLaptop}
-            alt="Couple validant sa demande de prêt"
+            alt={pt(lang, "home.altCouple")}
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-nova-950/95 via-nova-900/90 to-nova-800/80" />
           <div className="relative px-7 py-16 text-center sm:px-14">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-              Prêt à financer votre projet ?
+              {pt(lang, "home.ctaTitle")}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-nova-100">
-              Complétez la demande en moins de 5 minutes et recevez une réponse de principe en 30 minutes.
+              {pt(lang, "home.ctaText")}
             </p>
             <button
               onClick={() => goApply()}
               className="group mt-9 inline-flex items-center gap-2 rounded-2xl bg-mint-500 px-8 py-4 text-base font-extrabold text-nova-950 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:bg-mint-400"
             >
-              Demander mon prêt
+              {pt(lang, "home.ctaButton")}
               <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
             </button>
-            <p className="mt-4 text-sm text-nova-200">Sans frais · Sans engagement · Sans caution</p>
+            <p className="mt-4 text-sm text-nova-200">{pt(lang, "home.ctaNote")}</p>
           </div>
         </div>
       </section>

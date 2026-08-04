@@ -26,6 +26,7 @@ import { computeSimulation, type SimulationResult } from "../components/Simulato
 import { personalPurposes, photos, proPurposes } from "../data";
 import { validateEmail, validateIBAN, validatePhone } from "../lib/validate";
 import { detectCountry, getCountryByName, countryNames, t } from "../lib/locale";
+import { fmt, pt } from "../lib/content";
 import { useLanguage } from "../lib/LanguageContext";
 
 const nf = (n: number, d = 2) =>
@@ -97,7 +98,7 @@ export default function Apply() {
   const [form, setForm] = useState<Form>({
     kind: prefill?.kind ?? "personnel",
     profile: prefill?.profile ?? "particuliers",
-    purpose: prefill?.purpose ?? personalPurposes[0].label,
+    purpose: prefill?.purpose ?? personalPurposes[0].id,
     amount: prefill?.amount ?? 10000,
     months: prefill?.months ?? 36,
     civility: "Mme",
@@ -143,28 +144,28 @@ export default function Apply() {
   const validate = () => {
     const e: Record<string, string> = {};
     if (step === 1) {
-      if (form.firstName.trim().length < 2) e.firstName = "Indiquez votre prénom";
-      if (form.lastName.trim().length < 2) e.lastName = "Indiquez votre nom";
+      if (form.firstName.trim().length < 2) e.firstName = pt(lang, "apply.errFirstName");
+      if (form.lastName.trim().length < 2) e.lastName = pt(lang, "apply.errLastName");
       const emailErr = validateEmail(form.email);
       if (emailErr) e.email = emailErr;
       const phoneErr = validatePhone(form.phone);
       if (phoneErr) e.phone = phoneErr;
-      if (!form.birth) e.birth = "Indiquez votre date de naissance";
+      if (!form.birth) e.birth = pt(lang, "apply.errBirth");
       else {
         const age = (Date.now() - new Date(form.birth).getTime()) / 31557600000;
-        if (age < 18) e.birth = "Vous devez être majeur";
-        if (age > 90) e.birth = "Date de naissance invalide";
+        if (age < 18) e.birth = pt(lang, "apply.errAdult");
+        if (age > 90) e.birth = pt(lang, "apply.errBirthInvalid");
       }
-      if (form.country !== "France" && form.city.trim().length < 2) e.city = "Indiquez votre ville";
-      if (form.country === "France" && form.city.trim().length < 2) e.city = "Indiquez votre ville";
+      if (form.country !== "France" && form.city.trim().length < 2) e.city = pt(lang, "apply.errCity");
+      if (form.country === "France" && form.city.trim().length < 2) e.city = pt(lang, "apply.errCity");
     }
     if (step === 2) {
-      if (!form.income || Number(form.income) < 300) e.income = "Revenu net mensuel requis (min. 300 €)";
-      if (form.charges && Number(form.charges) < 0) e.charges = "Montant invalide";
+      if (!form.income || Number(form.income) < 300) e.income = pt(lang, "apply.errIncome");
+      if (form.charges && Number(form.charges) < 0) e.charges = pt(lang, "apply.errCharges");
       const ibanErr = validateIBAN(form.iban);
       if (ibanErr) e.iban = ibanErr;
     }
-    if (step === 3 && !form.consent) e.consent = "Vous devez accepter la politique de confidentialité";
+    if (step === 3 && !form.consent) e.consent = pt(lang, "apply.errConsent");
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -233,10 +234,10 @@ export default function Apply() {
     return (
       <main className="bg-slate-50 px-5 pt-28 pb-24 sm:px-8">
         <Helmet>
-          <title>Analyse de votre dossier · Prêt Nova</title>
-          <meta name="description" content="Votre demande de prêt est en cours d'analyse." />
-          <meta property="og:title" content="Demande en cours · Prêt Nova" />
-          <meta property="og:description" content="Votre demande de prêt est en cours d'analyse." />
+          <title>{pt(lang, "apply.analyzingTitle")} · Prêt Nova</title>
+          <meta name="description" content={pt(lang, "apply.analyzingText")} />
+          <meta property="og:title" content={pt(lang, "apply.analyzingTitle")} />
+          <meta property="og:description" content={pt(lang, "apply.analyzingText")} />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://pretnova.example/demande" />
           <meta property="og:locale" content={countryInfo.locale} />
@@ -246,11 +247,10 @@ export default function Apply() {
             <span className="h-8 w-8 animate-spin rounded-full border-4 border-nova-200 border-t-nova-600" />
           </span>
           <h1 className="mt-7 text-2xl font-extrabold tracking-tight text-nova-950">
-            Analyse de votre dossier
+            {pt(lang, "apply.analyzingTitle")}
           </h1>
           <p className="mt-3 leading-relaxed text-slate-600">
-            Nous vérifions les informations transmises. Vous recevrez une réponse de principe
-            sous quelques instants.
+            {pt(lang, "apply.analyzingText")}
           </p>
           <div className="mt-8 flex gap-2">
             {[0, 1, 2].map((i) => (
@@ -270,10 +270,10 @@ export default function Apply() {
     return (
       <main className="bg-slate-50 px-5 pt-28 pb-24 sm:px-8">
         <Helmet>
-          <title>Demande envoyée · Prêt Nova</title>
-          <meta name="description" content="Votre demande de prêt a été envoyée avec succès." />
-          <meta property="og:title" content="Demande envoyée · Prêt Nova" />
-          <meta property="og:description" content="Votre demande de prêt a été envoyée avec succès." />
+          <title>{pt(lang, "apply.sentTitle")} · Prêt Nova</title>
+          <meta name="description" content={pt(lang, "apply.sentText").replace("{0}", "").replace("{1}", "").replace("{2}", "")} />
+          <meta property="og:title" content={pt(lang, "apply.sentTitle")} />
+          <meta property="og:description" content={pt(lang, "apply.sentText").replace("{0}", "").replace("{1}", "").replace("{2}", "")} />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://pretnova.example/demande" />
           <meta property="og:locale" content={countryInfo.locale} />
@@ -281,7 +281,7 @@ export default function Apply() {
         <div className="mx-auto grid max-w-4xl gap-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_30px_80px_-40px_rgba(14,42,114,0.5)] md:grid-cols-2">
           <img
             src={photos.signing}
-            alt="Demande de prêt confirmée"
+            alt={pt(lang, "apply.altSigned")}
             className="h-full max-h-[420px] w-full object-cover"
           />
           <div className="p-8">
@@ -289,35 +289,33 @@ export default function Apply() {
               <PartyPopper className="h-7 w-7" />
             </span>
             <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-nova-950">
-              Demande envoyée, {form.firstName} !
+              {fmt(pt(lang, "apply.sentTitleName"), form.firstName)}
             </h1>
             <p className="mt-4 leading-relaxed text-slate-600">
-              Votre demande de <strong>{euro(form.amount, 0)}</strong> sur {form.months} mois est en cours
-              d'analyse. Vous recevrez une réponse de principe à <strong>{form.email}</strong> sous 30 minutes
-              ouvrées.
+              {fmt(pt(lang, "apply.sentText"), euro(form.amount, 0), form.months, form.email)}
             </p>
             <div className="mt-6 rounded-2xl bg-nova-50 p-5">
-              <p className="text-xs font-bold tracking-wider text-nova-700 uppercase">Référence dossier</p>
+              <p className="text-xs font-bold tracking-wider text-nova-700 uppercase">{pt(lang, "apply.refLabel")}</p>
               <p className="mt-1 font-mono text-lg font-extrabold tracking-wider text-nova-800">
                 {refNumber}
               </p>
               <p className="mt-3 text-sm text-slate-600">
-                Mensualité étudiée : <strong>{euro(sim.monthly)}</strong> · TAEG {nf(sim.taeg, 1)} %
+                {pt(lang, "apply.monthlyStudied")} <strong>{euro(sim.monthly)}</strong> · TAEG {nf(sim.taeg, 1)} %
               </p>
             </div>
             <a
               href="index.html"
               className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-nova-600 px-7 py-3.5 font-bold text-white shadow-lg shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
             >
-              Retour à l'accueil
+              {pt(lang, "apply.backHome")}
             </a>
 
             <div className="mt-6 border-t border-slate-100 pt-5">
               <p className="text-xs font-bold tracking-wider text-nova-700 uppercase">
-                Envoyer à mon conseiller
+                {pt(lang, "apply.sendAdvisor")}
               </p>
               <p className="mt-1 text-xs text-slate-500">
-                Transmettez votre dossier par WhatsApp ou Gmail avec vos pièces jointes.
+                {pt(lang, "apply.sendAdvisorText")}
               </p>
               <div className="mt-3 flex flex-wrap gap-2.5">
                 <a
@@ -364,7 +362,7 @@ export default function Apply() {
           href="index.html"
           className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-nova-700"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour à l'accueil
+          <ArrowLeft className="h-4 w-4" /> {pt(lang, "apply.backHome")}
         </a>
 
         {/* Stepper */}
@@ -420,7 +418,7 @@ export default function Apply() {
                         key={k}
                         onClick={() => {
                           set("kind", k);
-                          set("purpose", (k === "personnel" ? personalPurposes : proPurposes)[0].label);
+                          set("purpose", (k === "personnel" ? personalPurposes : proPurposes)[0].id);
                         }}
                         className={`rounded-2xl border p-4 text-left transition ${
                           form.kind === k
@@ -441,14 +439,14 @@ export default function Apply() {
                     {purposeList.map((p) => (
                       <button
                         key={p.id}
-                        onClick={() => set("purpose", p.label)}
+                        onClick={() => set("purpose", p.id)}
                         className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
-                          form.purpose === p.label
+                          form.purpose === p.id
                             ? "border-nova-600 bg-nova-600 text-white"
                             : "border-slate-200 bg-white text-slate-600 hover:border-nova-300"
                         }`}
                       >
-                        {p.label}
+                        {pt(lang, p.labelKey)}
                       </button>
                     ))}
                   </div>
@@ -478,7 +476,7 @@ export default function Apply() {
                 <div>
                   <div className="flex items-end justify-between gap-2">
                     <label className="text-sm font-bold text-nova-950">Durée de remboursement</label>
-                    <span className="text-2xl font-extrabold text-nova-700">{form.months} mois</span>
+                    <span className="text-2xl font-extrabold text-nova-700">{form.months} {pt(lang, "sim.monthsUnit")}</span>
                   </div>
                   <input
                     type="range"
@@ -502,19 +500,19 @@ export default function Apply() {
             {step === 1 && (
               <div className="space-y-6">
                 <div>
-                  <p className="mb-2 text-sm font-bold text-nova-950">Civilité</p>
+                  <p className="mb-2 text-sm font-bold text-nova-950">{pt(lang, "apply.civility")}</p>
                   <div className="flex gap-2.5">
-                    {["Mme", "M.", "Autre"].map((c) => (
+                    {[["Mme", "apply.mrs"], ["M.", "apply.mr"], ["Autre", "apply.other"]].map(([val, labelKey]) => (
                       <button
-                        key={c}
-                        onClick={() => set("civility", c)}
+                        key={val}
+                        onClick={() => set("civility", val)}
                         className={`rounded-xl border px-5 py-2.5 text-sm font-bold transition ${
-                          form.civility === c
+                          form.civility === val
                             ? "border-nova-600 bg-nova-600 text-white"
                             : "border-slate-200 text-slate-600 hover:border-nova-300"
                         }`}
                       >
-                        {c}
+                        {pt(lang, labelKey)}
                       </button>
                     ))}
                   </div>
@@ -634,15 +632,15 @@ export default function Apply() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label className="mb-1.5 block text-sm font-semibold text-slate-600">
-                      Ancienneté dans l'emploi
+                      {pt(lang, "apply.seniority")}
                     </label>
                     <select
                       value={form.seniority}
                       onChange={(e) => set("seniority", e.target.value)}
                       className={field("seniority")}
                     >
-                      {["Moins d'1 an", "1 à 3 ans", "3 à 5 ans", "Plus de 5 ans"].map((s) => (
-                        <option key={s}>{s}</option>
+                      {[["Moins d'1 an", "apply.seniority0"], ["1 à 3 ans", "apply.seniority1"], ["3 à 5 ans", "apply.seniority2"], ["Plus de 5 ans", "apply.seniority3"]].map(([val, labelKey]) => (
+                        <option key={val} value={val}>{pt(lang, labelKey)}</option>
                       ))}
                     </select>
                   </div>
@@ -765,32 +763,32 @@ export default function Apply() {
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <dl className="divide-y divide-slate-100 rounded-2xl border border-slate-200">
                     {[
-                      ["Type", form.kind === "personnel" ? "Prêt personnel" : "Prêt professionnel"],
-                      ["Objet", form.purpose],
-                      ["Montant", euro(form.amount, 0)],
-                      ["Durée", `${form.months} mois`],
-                      ["Mensualité", euro(sim.monthly)],
+                      ["apply.rowType", form.kind === "personnel" ? "Prêt personnel" : "Prêt professionnel"],
+                      ["apply.rowPurpose", pt(lang, (purposeList.find((p) => p.id === form.purpose) ?? purposeList[0]).labelKey)],
+                      ["apply.rowAmount", euro(form.amount, 0)],
+                      ["apply.rowDuration", `${form.months} ${pt(lang, "sim.monthsUnit")}`],
+                      ["apply.rowMonthly", euro(sim.monthly)],
                       ["TANN / TAEG", `${nf(sim.tann, 3)} % · ${nf(sim.taeg, 1)} %`],
                       ["MTIC", euro(sim.mtic)],
                     ].map(([k, v]) => (
-                      <div key={k} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-                        <dt className="text-slate-500">{k}</dt>
+                      <div key={k as string} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
+                        <dt className="text-slate-500">{k.startsWith("apply.") ? pt(lang, k as string) : k}</dt>
                         <dd className="text-right font-bold text-nova-950">{v}</dd>
                       </div>
                     ))}
                   </dl>
                   <dl className="divide-y divide-slate-100 rounded-2xl border border-slate-200">
                     {[
-                      ["Demandeur", `${form.civility} ${form.firstName} ${form.lastName}`],
+                      ["apply.rowApplicant", `${form.civility} ${form.firstName} ${form.lastName}`],
                       ["Email", form.email],
-                      ["Téléphone", form.phone],
-                      ["Résidence", `${form.city}, ${form.country}`],
-                      ["Emploi", employmentOptions.find((e) => e.id === form.employment)?.label ?? "—"],
-                      ["Revenu net", form.income ? `${nf(Number(form.income), 0)} €` : "—"],
-                      ["Logement", form.housing],
+                      ["apply.rowPhone", form.phone],
+                      ["apply.rowResidence", `${form.city}, ${form.country}`],
+                      ["apply.rowEmployment", employmentOptions.find((e) => e.id === form.employment)?.label ?? "—"],
+                      ["apply.rowIncome", form.income ? `${nf(Number(form.income), 0)} €` : "—"],
+                      ["apply.rowHousing", form.housing],
                     ].map(([k, v]) => (
-                      <div key={k} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-                        <dt className="text-slate-500">{k}</dt>
+                      <div key={k as string} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
+                        <dt className="text-slate-500">{k.startsWith("apply.") ? pt(lang, k as string) : k}</dt>
                         <dd className="max-w-[55%] truncate text-right font-bold text-nova-950">{v}</dd>
                       </div>
                     ))}
@@ -850,17 +848,17 @@ export default function Apply() {
               <div className="flex items-center gap-2 bg-amber-400 px-4 py-2">
                 <Sparkles className="h-3.5 w-3.5 text-amber-900" />
                 <p className="text-[10px] font-extrabold tracking-wider text-amber-900 uppercase">
-                  Tarif promo jusqu'au 12/05/2026
+                  {pt(lang, "apply.promoBanner")}
                 </p>
               </div>
               <div className="p-6">
-                <p className="text-[11px] font-bold tracking-widest text-nova-200 uppercase">Votre simulation</p>
+                <p className="text-[11px] font-bold tracking-widest text-nova-200 uppercase">{pt(lang, "apply.yourSim")}</p>
                 <p className="mt-2 text-3xl font-extrabold">{currency(form.amount, countryInfo.currency, 0)}</p>
                 <p className="text-sm text-nova-200">
-                  {form.months} mois · TANN {nf(sim.tann, 3)} %
+                  {fmt(pt(lang, "apply.yourSimLine"), form.months, nf(sim.tann, 3))}
                 </p>
                 <div className="mt-5 border-t border-white/15 pt-4">
-                  <p className="text-sm text-nova-200">Mensualité</p>
+                  <p className="text-sm text-nova-200">{pt(lang, "apply.rowMonthly")}</p>
                   <p className="text-2xl font-extrabold text-mint-400">{currency(sim.monthly, countryInfo.currency)}</p>
                 </div>
                 <div className="mt-4 flex justify-between border-t border-white/15 pt-4 text-sm">
@@ -872,26 +870,26 @@ export default function Apply() {
 
             <img
               src={photos.advisor}
-              alt="Conseillère Prêt Nova"
+              alt={pt(lang, "apply.altAdvisorSide")}
               loading="lazy"
               className="hidden h-40 w-full rounded-3xl object-cover lg:block"
             />
 
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <p className="flex items-center gap-2 text-sm font-bold text-nova-950">
-                <Lock className="h-4 w-4 text-mint-500" /> Connexion chiffrée
+                <Lock className="h-4 w-4 text-mint-500" /> {pt(lang, "apply.secureTitle")}
               </p>
               <ul className="mt-4 space-y-2.5 text-sm text-slate-600">
                 {[
-                  [ShieldCheck, "Données chiffrées AES-256"],
-                  [Landmark, "Partenaires agréés UE"],
-                  [Clock3, "Réponse en 30 minutes"],
-                  [CheckCircle2, "Sans engagement"],
-                ].map(([Icon, t]) => {
+                  [ShieldCheck, "apply.secure1"],
+                  [Landmark, "apply.secure2"],
+                  [Clock3, "apply.secure3"],
+                  [CheckCircle2, "apply.secure4"],
+                ].map(([Icon, labelKey]) => {
                   const I = Icon as typeof ShieldCheck;
                   return (
-                    <li key={t as string} className="flex items-center gap-2">
-                      <I className="h-4 w-4 shrink-0 text-mint-500" /> {t as string}
+                    <li key={labelKey as string} className="flex items-center gap-2">
+                      <I className="h-4 w-4 shrink-0 text-mint-500" /> {pt(lang, labelKey as string)}
                     </li>
                   );
                 })}

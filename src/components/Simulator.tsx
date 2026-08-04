@@ -26,6 +26,8 @@ import {
   Wrench,
 } from "lucide-react";
 import { personalPurposes, proPurposes } from "../data";
+import { pt } from "../lib/content";
+import { useLanguage } from "../lib/LanguageContext";
 
 export type SimulationResult = {
   kind: "personnel" | "professionnel";
@@ -143,6 +145,7 @@ export default function Simulator({
 }: {
   onApply: (result: SimulationResult) => void;
 }) {
+  const { lang } = useLanguage();
   const [kind, setKind] = useState<SimulationResult["kind"]>("personnel");
   const [profile, setProfile] = useState<SimulationResult["profile"]>("particuliers");
   const [amount, setAmount] = useState(1000);
@@ -155,8 +158,8 @@ export default function Simulator({
   const activePurpose = purposeList.find((p) => p.id === purpose) ?? purposeList[0];
 
   const r = useMemo(
-    () => computeSimulation(kind, profile, activePurpose.label, amount, months),
-    [kind, profile, activePurpose.label, amount, months],
+    () => computeSimulation(kind, profile, activePurpose.id, amount, months),
+    [kind, profile, activePurpose.id, amount, months],
   );
 
   const switchKind = (k: SimulationResult["kind"]) => {
@@ -171,10 +174,10 @@ export default function Simulator({
         <div className="inline-flex rounded-2xl bg-slate-100 p-1.5">
           {(
             [
-              ["personnel", "Prêt Personnel", User],
-              ["professionnel", "Prêt Professionnel", Briefcase],
+              ["personnel", "sim.tabPersonal", User],
+              ["professionnel", "sim.tabPro", Briefcase],
             ] as const
-          ).map(([k, label, Icon]) => (
+          ).map(([k, labelKey, Icon]) => (
             <button
               key={k}
               onClick={() => switchKind(k)}
@@ -182,24 +185,24 @@ export default function Simulator({
                 kind === k ? "bg-white text-nova-700 shadow-md" : "text-slate-500 hover:text-nova-700"
               }`}
             >
-              <Icon className="h-4.5 w-4.5" /> {label}
+              <Icon className="h-4.5 w-4.5" /> {pt(lang, labelKey)}
             </button>
           ))}
         </div>
 
         <div className="flex flex-wrap gap-2.5">
           {[
-            [ShieldCheck, "Sécurité bancaire"],
-            [Landmark, "Réglementé UE"],
-            [Clock3, "Livraison 30 min"],
-          ].map(([Icon, label]) => {
+            [ShieldCheck, "home.badge1"],
+            [Landmark, "home.badge2"],
+            [Clock3, "home.badge3"],
+          ].map(([Icon, labelKey]) => {
             const I = Icon as typeof ShieldCheck;
             return (
               <span
-                key={label as string}
+                key={labelKey as string}
                 className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-600"
               >
-                <I className="h-3.5 w-3.5 text-mint-500" /> {label as string}
+                <I className="h-3.5 w-3.5 text-mint-500" /> {pt(lang, labelKey as string)}
               </span>
             );
           })}
@@ -209,7 +212,7 @@ export default function Simulator({
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         {/* LEFT — controls */}
         <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_70px_-40px_rgba(14,42,114,0.5)] sm:p-8">
-          <p className="text-sm font-bold text-nova-950">Quel est votre objectif ?</p>
+          <p className="text-sm font-bold text-nova-950">{pt(lang, "sim.objective")}</p>
           <div className="mt-3.5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
             {purposeList.map((p) => {
               const Icon = icons[p.icon];
@@ -225,7 +228,7 @@ export default function Simulator({
                   }`}
                 >
                   <Icon className={`h-4.5 w-4.5 shrink-0 ${active ? "text-nova-600" : "text-slate-400"}`} />
-                  <span className="leading-tight">{p.label}</span>
+                  <span className="leading-tight">{pt(lang, p.labelKey)}</span>
                 </button>
               );
             })}
@@ -234,10 +237,10 @@ export default function Simulator({
           {/* Amount */}
           <div className="mt-8">
             <div className="flex flex-wrap items-end justify-between gap-2">
-              <label className="text-sm font-bold text-nova-950">Combien voulez-vous demander ?</label>
+              <label className="text-sm font-bold text-nova-950">{pt(lang, "sim.amountLabel")}</label>
               <span className="text-3xl font-extrabold tracking-tight text-nova-700">{euro(amount, 0)}</span>
             </div>
-            <p className="mt-1 text-xs text-slate-500">Entre 1 000 € et 75 000 €</p>
+            <p className="mt-1 text-xs text-slate-500">{pt(lang, "sim.amountRange")}</p>
             <div className="mt-4">
               <Slider value={amount} min={MIN} max={MAX} step={500} onChange={setAmount} />
               <div className="mt-2 flex justify-between text-xs font-semibold text-slate-400">
@@ -265,28 +268,30 @@ export default function Simulator({
           {/* Duration */}
           <div className="mt-8">
             <div className="flex items-end justify-between gap-2">
-              <label className="text-sm font-bold text-nova-950">Dans combien de mois ?</label>
-              <span className="text-3xl font-extrabold tracking-tight text-nova-700">{months} mois</span>
+              <label className="text-sm font-bold text-nova-950">{pt(lang, "sim.durationLabel")}</label>
+              <span className="text-3xl font-extrabold tracking-tight text-nova-700">
+                {months} {pt(lang, "sim.monthsUnit")}
+              </span>
             </div>
             <div className="mt-4">
               <Slider value={months} min={MIN_M} max={MAX_M} step={6} onChange={setMonths} />
               <div className="mt-2 flex justify-between text-xs font-semibold text-slate-400">
-                <span>18 mois</span>
-                <span>84 mois</span>
+                <span>18 {pt(lang, "sim.monthsUnit")}</span>
+                <span>84 {pt(lang, "sim.monthsUnit")}</span>
               </div>
             </div>
           </div>
 
           {/* Profile */}
           <div className="mt-8">
-            <label className="text-sm font-bold text-nova-950">Profil</label>
+            <label className="text-sm font-bold text-nova-950">{pt(lang, "sim.profileLabel")}</label>
             <div className="mt-3 grid grid-cols-2 gap-3">
               {(
                 [
-                  ["particuliers", "Particuliers", "Barème standard", User],
-                  ["prestige", "Prestige", "Revenus > 3 500 € net", Crown],
+                  ["particuliers", "sim.profileParticuliers", "sim.profileParticuliersHint", User],
+                  ["prestige", "sim.profilePrestige", "sim.profilePrestigeHint", Crown],
                 ] as const
-              ).map(([p, label, hint, Icon]) => {
+              ).map(([p, labelKey, hintKey, Icon]) => {
                 const active = profile === p;
                 return (
                   <button
@@ -300,9 +305,9 @@ export default function Simulator({
                   >
                     <Icon className={`h-5 w-5 ${active ? "text-nova-600" : "text-slate-400"}`} />
                     <p className={`mt-2 text-sm font-extrabold ${active ? "text-nova-800" : "text-slate-700"}`}>
-                      {label}
+                      {pt(lang, labelKey)}
                     </p>
-                    <p className="text-xs text-slate-500">{hint}</p>
+                    <p className="text-xs text-slate-500">{pt(lang, hintKey)}</p>
                   </button>
                 );
               })}
@@ -314,11 +319,10 @@ export default function Simulator({
             <Info className="mt-0.5 h-5 w-5 shrink-0 text-mint-600" />
             <div>
               <p className="text-sm font-extrabold text-nova-950">
-                Le taux et le montant des mensualités restent inchangés !
+                {pt(lang, "sim.fixedTitle")}
               </p>
               <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                Le taux d'intérêt et le montant des mensualités des prêts personnels sont fixes pour toute la
-                durée du prêt.
+                {pt(lang, "sim.fixedText")}
               </p>
             </div>
           </div>
@@ -327,7 +331,7 @@ export default function Simulator({
             onClick={() => onApply(r)}
             className="group mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-nova-600 px-6 py-4 text-base font-extrabold text-white shadow-xl shadow-nova-600/25 transition hover:-translate-y-0.5 hover:bg-nova-700"
           >
-            Demander un prêt {kind === "personnel" ? "personnel" : "professionnel"}
+            {pt(lang, "sim.applyButton")}
             <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
           </button>
         </div>
@@ -338,18 +342,18 @@ export default function Simulator({
             <div className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-300 px-5 py-2.5">
               <Sparkles className="h-3.5 w-3.5 text-amber-900" />
               <p className="text-[11px] font-extrabold tracking-wider text-amber-900 uppercase">
-                Tarif promotionnel — valable jusqu'au 12/05/2026
+                {pt(lang, "sim.promo")}
               </p>
             </div>
 
             <div className="bg-gradient-to-br from-nova-950 to-nova-800 px-6 py-7 text-white">
-              <p className="text-[11px] font-bold tracking-widest text-nova-200 uppercase">Paiement mensuel</p>
+              <p className="text-[11px] font-bold tracking-widest text-nova-200 uppercase">{pt(lang, "sim.paymentLabel")}</p>
               <div className="mt-2 flex items-end gap-3">
                 <span className="rounded-xl bg-white/10 px-3 py-1.5 text-lg font-extrabold text-mint-400">
                   {months}x
                 </span>
                 <span className="text-4xl leading-none font-extrabold tracking-tight">{euro(r.monthly)}</span>
-                <span className="pb-1 text-sm text-nova-200">/ mois</span>
+                <span className="pb-1 text-sm text-nova-200">{pt(lang, "sim.perMonth")}</span>
               </div>
 
               <div className="mt-6 grid grid-cols-3 gap-3 border-t border-white/15 pt-5 text-center">
@@ -362,15 +366,15 @@ export default function Simulator({
                   <p className="mt-1 font-extrabold">{nf(r.taeg, 1)} %</p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold tracking-wider text-nova-200 uppercase">Type de frais</p>
-                  <p className="mt-1 font-extrabold">Fixé</p>
+                  <p className="text-[11px] font-bold tracking-wider text-nova-200 uppercase">{pt(lang, "sim.feeType")}</p>
+                  <p className="mt-1 font-extrabold">{pt(lang, "sim.feeFixed")}</p>
                 </div>
               </div>
             </div>
 
             <div className="px-6 py-6">
               <p className="text-[11px] font-extrabold tracking-widest text-slate-400 uppercase">
-                Combien payez-vous au total ?
+                {pt(lang, "sim.totalLabel")}
               </p>
               <div className="mt-4 flex items-center justify-between rounded-2xl bg-nova-50 px-4 py-3.5">
                 <span className="flex items-center gap-2 text-sm font-extrabold text-nova-900">
@@ -381,14 +385,14 @@ export default function Simulator({
 
               <dl className="mt-4 divide-y divide-slate-100 text-sm">
                 {[
-                  ["Montant demandé", r.amount],
-                  ["Intérêts", r.interest],
-                  ["Droits de timbre sur les intérêts", r.stampInterest],
-                  ["Droits de timbre à l'ouverture", r.stampOpening],
-                  ["Frais et dépenses", r.fees],
-                ].map(([label, value]) => (
-                  <div key={label as string} className="flex items-center justify-between gap-4 py-2.5">
-                    <dt className="text-slate-500">{label as string}</dt>
+                  ["sim.lineAmount", r.amount],
+                  ["sim.lineInterest", r.interest],
+                  ["sim.lineStampInterest", r.stampInterest],
+                  ["sim.lineStampOpening", r.stampOpening],
+                  ["sim.lineFees", r.fees],
+                ].map(([labelKey, value]) => (
+                  <div key={labelKey as string} className="flex items-center justify-between gap-4 py-2.5">
+                    <dt className="text-slate-500">{pt(lang, labelKey as string)}</dt>
                     <dd className="font-bold text-nova-950">{euro(value as number)}</dd>
                   </div>
                 ))}
@@ -396,8 +400,7 @@ export default function Simulator({
 
               <p className="mt-4 flex items-start gap-2 text-[11px] leading-relaxed text-slate-400">
                 <Banknote className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                Simulation indicative calculée sur un remboursement mensuel constant. L'offre définitive
-                dépend de l'étude de votre dossier.
+                {pt(lang, "sim.disclaimer")}
               </p>
             </div>
           </div>
@@ -405,9 +408,9 @@ export default function Simulator({
           {/* Save by email */}
           <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
             <p className="flex items-center gap-2 text-sm font-extrabold text-nova-950">
-              <Mail className="h-4.5 w-4.5 text-nova-600" /> Sauvegarder la simulation par courriel
+              <Mail className="h-4.5 w-4.5 text-nova-600" /> {pt(lang, "sim.saveTitle")}
               <span className="ml-auto rounded-full bg-slate-200 px-2.5 py-1 text-[10px] font-extrabold tracking-wide text-slate-500 uppercase">
-                Bientôt disponible
+                {pt(lang, "sim.comingSoon")}
               </span>
             </p>
             <div className="mt-3.5 flex flex-col gap-2.5 sm:flex-row">
@@ -421,13 +424,11 @@ export default function Simulator({
                 onClick={() => setSavedHint(true)}
                 className="shrink-0 cursor-not-allowed rounded-xl bg-slate-300 px-5 py-3 text-sm font-bold text-white"
               >
-                Envoyer
+                {pt(lang, "sim.send")}
               </button>
             </div>
             <p className="mt-2.5 text-xs text-slate-500">
-              {savedHint
-                ? "La sauvegarde par email sera disponible prochainement."
-                : "Recevez le détail de cette simulation dans votre boîte mail."}
+              {savedHint ? pt(lang, "sim.saveHintDone") : pt(lang, "sim.saveHint")}
             </p>
           </div>
         </div>

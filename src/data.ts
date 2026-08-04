@@ -25,142 +25,85 @@ export const avatars = {
   thomas: { initials: "TM", color: "bg-nova-400" },
 };
 
-export type Feature = { icon: string; title: string; text: string };
+export type Feature = { icon: string; titleKey: string; textKey: string };
 
 export const features: Feature[] = [
-  {
-    icon: "Zap",
-    title: "Réponse en 30 minutes",
-    text: "Notre moteur de décision analyse votre dossier en temps réel. Accord de principe immédiat, déblocage sous 24 h.",
-  },
-  {
-    icon: "ShieldCheck",
-    title: "Sécurité bancaire",
-    text: "Chiffrement AES-256, authentification forte et hébergement européen. Vos données ne sont jamais revendues.",
-  },
-  {
-    icon: "Landmark",
-    title: "Réglementé dans l'UE",
-    text: "Intermédiaire en financement participatif enregistré, conforme à la directive européenne sur le crédit aux consommateurs.",
-  },
-  {
-    icon: "LockKeyhole",
-    title: "Taux fixe garanti",
-    text: "Le TANN et la mensualité ne bougent pas pendant toute la durée du prêt. Aucun frais caché, aucune surprise.",
-  },
-  {
-    icon: "UserCheck",
-    title: "Sans caution ni garant",
-    text: "Nous évaluons votre capacité de remboursement réelle. Pas de caution solidaire, pas de bien mis en garantie.",
-  },
-  {
-    icon: "Headphones",
-    title: "Un conseiller dédié",
-    text: "Une équipe humaine joignable du lundi au samedi, par téléphone, chat ou visioconférence.",
-  },
+  { icon: "Zap", titleKey: "f1.title", textKey: "f1.text" },
+  { icon: "ShieldCheck", titleKey: "f2.title", textKey: "f2.text" },
+  { icon: "Landmark", titleKey: "f3.title", textKey: "f3.text" },
+  { icon: "LockKeyhole", titleKey: "f4.title", textKey: "f4.text" },
+  { icon: "UserCheck", titleKey: "f5.title", textKey: "f5.text" },
+  { icon: "Headphones", titleKey: "f6.title", textKey: "f6.text" },
 ];
 
 export const steps = [
-  {
-    title: "Simulez en 30 secondes",
-    text: "Choisissez le montant, la durée et votre profil. La mensualité et le coût total s'affichent instantanément.",
-  },
-  {
-    title: "Complétez la demande",
-    text: "Un formulaire guidé en 4 étapes, entièrement en ligne, avec sauvegarde automatique de votre progression.",
-  },
-  {
-    title: "Recevez l'accord",
-    text: "Analyse automatisée puis validation par un conseiller. Réponse de principe en 30 minutes ouvrées.",
-  },
-  {
-    title: "Signez et recevez les fonds",
-    text: "Signature électronique certifiée eIDAS, puis virement SEPA sur votre compte sous 24 à 48 heures.",
-  },
+  { titleKey: "s1.title", textKey: "s1.text" },
+  { titleKey: "s2.title", textKey: "s2.text" },
+  { titleKey: "s3.title", textKey: "s3.text" },
+  { titleKey: "s4.title", textKey: "s4.text" },
 ];
 
 export const stats = [
-  { value: 75000, suffix: " €", label: "Montant maximum finançable" },
-  { value: 30, suffix: " min", label: "Délai moyen de réponse" },
-  { value: 42800, suffix: "+", label: "Dossiers financés en zone Euro" },
-  { value: 94, suffix: " %", label: "Taux d'acceptation" },
+  { value: 75000, suffix: " €", labelKey: "stat1" },
+  { value: 30, suffix: " min", labelKey: "stat2" },
+  { value: 42800, suffix: "+", labelKey: "stat3" },
+  { value: 94, suffix: " %", labelKey: "stat4" },
 ];
 
 export const testimonials = [
   {
-    quote:
-      "J'ai simulé mon prêt un dimanche soir et signé le mardi. La mensualité annoncée par le simulateur était exactement celle du contrat.",
+    quoteKey: "t1.quote",
     name: "Camille Rousseau",
-    city: "Lyon · Prêt travaux 18 000 €",
+    cityKey: "t1.city",
     initials: avatars.camille.initials,
     color: avatars.camille.color,
   },
   {
-    quote:
-      "Le détail du coût total, timbres compris, m'a permis de comparer sérieusement avec ma banque. Personne d'autre ne me l'avait montré aussi clairement.",
+    quoteKey: "t2.quote",
     name: "Yanis Berthier",
-    city: "Bruxelles · Regroupement 27 500 €",
+    cityKey: "t2.city",
     initials: avatars.yanis.initials,
     color: avatars.yanis.color,
   },
   {
-    quote:
-      "En tant qu'indépendante, j'avais peur du parcours. Une conseillère m'a rappelée en vingt minutes et le dossier était bouclé le lendemain.",
+    quoteKey: "t3.quote",
     name: "Sofia Marchetti",
-    city: "Milan · Prêt professionnel 40 000 €",
+    cityKey: "t3.city",
     initials: avatars.sofia.initials,
     color: avatars.sofia.color,
   },
 ];
 
 export const faqs = [
-  {
-    q: "Comment obtenir une réponse en 30 minutes ?",
-    a: "Notre moteur d'analyse vérifie automatiquement les informations transmises et interroge nos partenaires bancaires. Pendant les heures ouvrées, un conseiller valide ensuite le dossier, ce qui donne un accord de principe en une trentaine de minutes.",
-  },
-  {
-    q: "Le taux affiché dans le simulateur est-il définitif ?",
-    a: "Le TANN et la mensualité affichés correspondent au barème promotionnel en vigueur pour le profil sélectionné. Ils sont confirmés après étude du dossier, puis restent fixes pendant toute la durée du prêt.",
-  },
-  {
-    q: "Que comprend exactement le MTIC ?",
-    a: "Le montant total imputé au consommateur additionne le capital emprunté, les intérêts, les droits de timbre sur les intérêts et à l'ouverture, ainsi que les frais de dossier. C'est la somme réellement remboursée au terme du contrat.",
-  },
-  {
-    q: "Quels justificatifs dois-je fournir ?",
-    a: "Une pièce d'identité en cours de validité, un justificatif de revenus récent et un RIB au format IBAN. Les indépendants ajoutent leur dernier avis d'imposition ou bilan.",
-  },
-  {
-    q: "Puis-je rembourser par anticipation ?",
-    a: "Oui, à tout moment, en totalité ou partiellement. L'indemnité éventuelle est plafonnée par la réglementation européenne et vous est communiquée avant la signature.",
-  },
-  {
-    q: "Et si une mensualité pose problème ?",
-    a: "Contactez votre conseiller avant l'échéance. Report d'une mensualité, modulation ou allongement de la durée : plusieurs aménagements existent pour éviter tout incident.",
-  },
+  { qKey: "q1", aKey: "a1" },
+  { qKey: "q2", aKey: "a2" },
+  { qKey: "q3", aKey: "a3" },
+  { qKey: "q4", aKey: "a4" },
+  { qKey: "q5", aKey: "a5" },
+  { qKey: "q6", aKey: "a6" },
 ];
 
 export const personalPurposes = [
-  { id: "travaux", label: "Travaux & rénovation", icon: "Hammer" },
-  { id: "auto", label: "Voiture / moto", icon: "Car" },
-  { id: "regroupement", label: "Regroupement de crédits", icon: "Layers" },
-  { id: "etudes", label: "Études & formation", icon: "GraduationCap" },
-  { id: "voyage", label: "Voyage & loisirs", icon: "Plane" },
-  { id: "sante", label: "Santé & imprévus", icon: "HeartPulse" },
+  { id: "travaux", labelKey: "pp.travaux", icon: "Hammer" },
+  { id: "auto", labelKey: "pp.auto", icon: "Car" },
+  { id: "regroupement", labelKey: "pp.regroupement", icon: "Layers" },
+  { id: "etudes", labelKey: "pp.etudes", icon: "GraduationCap" },
+  { id: "voyage", labelKey: "pp.voyage", icon: "Plane" },
+  { id: "sante", labelKey: "pp.sante", icon: "HeartPulse" },
 ];
 
 export const proPurposes = [
-  { id: "tresorerie", label: "Trésorerie", icon: "Wallet" },
-  { id: "equipement", label: "Équipement & matériel", icon: "Wrench" },
-  { id: "local", label: "Local commercial", icon: "Store" },
-  { id: "stock", label: "Achat de stock", icon: "Package" },
-  { id: "recrutement", label: "Recrutement", icon: "Users" },
-  { id: "croissance", label: "Développement", icon: "TrendingUp" },
+  { id: "tresorerie", labelKey: "pp.tresorerie", icon: "Wallet" },
+  { id: "equipement", labelKey: "pp.equipement", icon: "Wrench" },
+  { id: "local", labelKey: "pp.local", icon: "Store" },
+  { id: "stock", labelKey: "pp.stock", icon: "Package" },
+  { id: "recrutement", labelKey: "pp.recrutement", icon: "Users" },
+  { id: "croissance", labelKey: "pp.croissance", icon: "TrendingUp" },
 ];
 
 export const projects = [
-  { title: "Travaux & rénovation", amount: "dès 3 000 €", photo: photos.kitchen },
-  { title: "Achat d'un véhicule", amount: "dès 5 000 €", photo: photos.car },
-  { title: "Lancer son activité", amount: "dès 10 000 €", photo: photos.entrepreneur },
-  { title: "Regrouper ses crédits", amount: "jusqu'à 75 000 €", photo: photos.works },
+  { titleKey: "pr.travaux", amountKey: "pr.travauxAmt", photo: photos.kitchen },
+  { titleKey: "pr.auto", amountKey: "pr.autoAmt", photo: photos.car },
+  { titleKey: "pr.activite", amountKey: "pr.activiteAmt", photo: photos.entrepreneur },
+  { titleKey: "pr.regroupement", amountKey: "pr.regroupementAmt", photo: photos.works },
 ];
