@@ -82,10 +82,10 @@ export default function Header() {
 
           <div className="hidden items-center gap-3 lg:flex">
             <a
-              href="tel:+33180000000"
+              href="tel:+33756916774"
               className="flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-nova-700"
             >
-              <Phone className="h-4 w-4" /> 01 80 00 00 00
+              <Phone className="h-4 w-4" /> 07 56 91 67 74
             </a>
             <a
               href="demande.html"

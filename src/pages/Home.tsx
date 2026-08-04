@@ -66,7 +66,7 @@ export default function Home() {
           feesAndCommissionsSpecification: "https://pretnova.example/information-precontractuelle",
           contactPoint: {
             "@type": "ContactPoint",
-            telephone: "+33-1-80-00-00-00",
+            telephone: "+33-7-56-91-67-74",
             contactType: "customer service",
             availableLanguage: ["French"],
           },

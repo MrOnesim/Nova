@@ -319,7 +319,7 @@ export default function Apply() {
               </p>
               <div className="mt-3 flex flex-wrap gap-2.5">
                 <a
-                  href={`https://wa.me/${countryInfo.phonePrefix.replace("+", "")}?text=${encodeURIComponent(
+                  href={`https://wa.me/33756916774?text=${encodeURIComponent(
                     `Bonjour, je viens de soumettre une demande de prêt ${form.kind === "personnel" ? "personnel" : "professionnel"} de ${euro(form.amount, 0)} sur ${form.months} mois.\n\nRéf. dossier : NOVA-${refNumber}\nMensualité : ${euro(sim.monthly)}\nMTIC : ${euro(sim.mtic)}\nTAEG : ${nf(sim.taeg, 1)} %\n\nPièces jointes :\n- Carte d'identité (recto) : ${form.identityRecto?.name ?? "non fournie"}\n- Carte d'identité (verso) : ${form.identityVerso?.name ?? "non fournie"}\n- Justificatif de revenus : ${form.incomeFile?.name ?? "non fourni"}\n\nMerci de me recontacter à ${form.email} ou au ${form.phone}.`
                   )}`}
                   target="_blank"

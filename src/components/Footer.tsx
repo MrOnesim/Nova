@@ -35,7 +35,7 @@ export default function Footer() {
 
           <div className="mt-6 space-y-2.5 text-sm text-slate-400">
             <p className="flex items-center gap-2.5">
-              <Phone className="h-4 w-4 text-mint-400" /> 01 80 00 00 00 · {pt(lang, "footer.hours")}
+              <Phone className="h-4 w-4 text-mint-400" /> 07 56 91 67 74 · {pt(lang, "footer.hours")}
             </p>
             <p className="flex items-center gap-2.5">
               <Mail className="h-4 w-4 text-mint-400" /> bonjour@pretnova.example

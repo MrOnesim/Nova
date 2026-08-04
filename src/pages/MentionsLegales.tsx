@@ -28,7 +28,7 @@ export default function MentionsLegales() {
             </p>
             <ul className="mt-3 space-y-1">
               <li>Siège social : 24 rue de la Boétie, 75008 Paris</li>
-              <li>Numéro de téléphone : 01 80 00 00 00</li>
+              <li>Numéro de téléphone : 07 56 91 67 74</li>
               <li>Adresse email : bonjour@pretnova.example</li>
               <li>Numéro de TVA intracommunautaire : FR12912345678</li>
             </ul>

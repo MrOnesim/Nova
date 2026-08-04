@@ -107,7 +107,7 @@ export default function Faq() {
                   {pt(lang, "faq.contactText")}
                 </p>
                 <div className="mt-6 space-y-2.5 text-sm">
-                  <p><span className="font-semibold text-nova-800">{pt(lang, "faq.phone")}</span> 01 80 00 00 00</p>
+                  <p><span className="font-semibold text-nova-800">{pt(lang, "faq.phone")}</span> 07 56 91 67 74</p>
                   <p><span className="font-semibold text-nova-800">{pt(lang, "faq.email")}</span> bonjour@pretnova.example</p>
                 </div>
                 <a
