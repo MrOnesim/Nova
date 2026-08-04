@@ -6,6 +6,7 @@ import Apply from "./Apply";
 import { LanguageProvider } from "../lib/LanguageContext";
 
 function renderApply() {
+  localStorage.setItem("pretnova-lang", "fr");
   return render(
     <LanguageProvider>
       <HelmetProvider>

@@ -40,11 +40,11 @@ export function detectCountry(): CountryInfo {
       if (found) return found;
     }
   } catch {}
-  return countries[0]; // default: France
+  return countries.find((c) => c.code === "ES") ?? countries[3]; // default: Spain
 }
 
 export function getCountryByName(name: string): CountryInfo {
-  return countries.find((c) => c.name === name) ?? countries[0];
+  return countries.find((c) => c.name === name) ?? countries.find((c) => c.code === "ES") ?? countries[3];
 }
 
 export const countryNames = countries.map((c) => c.name);
